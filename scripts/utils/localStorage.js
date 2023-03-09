@@ -11,5 +11,4 @@ export function parseDataFromLocalStorage (filename) {
 
 export function updateQuestionDataInStorage (data, filename){
     localStorage.setItem(filename, JSON.stringify(data));
-    console.log(data);
 }
