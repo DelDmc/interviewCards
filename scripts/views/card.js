@@ -5,7 +5,7 @@ export function fillUpHTMLCard (questionData, statusState){
     const questionText = questionData.text;
 
     const subquestions = addSubQuestion (questionData);
-    const cardHTML = `
+    const questionCardHTML = `
         <div class="card mb-5 mt-3">
             <header class="card-header has-background-grey-lighter has-text-centered">
                 <p class="card-header-title ">
@@ -24,19 +24,19 @@ export function fillUpHTMLCard (questionData, statusState){
             </div>
         </div>
         `;
-    return cardHTML;
+    return questionCardHTML;
 }
 
 function addSubQuestion (questionData) {
     if (questionData.subquestions && questionData.subquestions.length > 0){
         const subquestions = questionData.subquestions;
-        let html = '';
+        let resultSubQuestionsHTML = '';
         subquestions.forEach(
             subquestionData => {
                 html +=`<div class="content pl-5">${subquestionData.id} ${subquestionData.text}</div>`;
             }
         );
-        return html;
+        return resultSubQuestionsHTML;
     }
 }
 
