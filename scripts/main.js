@@ -8,16 +8,16 @@ addFileToLocalStorage(questions, dataFileName);
 const storedQuestions = parseDataFromLocalStorage(dataFileName);
 
 storedQuestions.forEach(
-    questionData => {
+    (questionData, idx) => {
         document.getElementById("checklist")
                 .insertAdjacentHTML(
                     'beforeend', 
-                    createHTMLCardElement(questionData)
+                    createHTMLCardElement(questionData, idx)
                     );
                 });
 
 storedQuestions.forEach(
-    questionData  => {
-        changeButtonState(questionData, storedQuestions, dataFileName);    
+    (questionData, idx)  => {
+        changeButtonState(questionData, idx, storedQuestions, dataFileName);    
 });
 
