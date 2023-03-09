@@ -33,7 +33,7 @@ function addSubQuestion (questionData) {
         let resultSubQuestionsHTML = '';
         subquestions.forEach(
             subquestionData => {
-                html +=`<div class="content pl-5">${subquestionData.id} ${subquestionData.text}</div>`;
+                resultSubQuestionsHTML +=`<div class="content pl-5">${subquestionData.id} ${subquestionData.text}</div>`;
             }
         );
         return resultSubQuestionsHTML;
