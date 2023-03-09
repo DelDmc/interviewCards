@@ -2,7 +2,7 @@ export const questions = [
     {
         id: 1,
         text: "Explain event delegation.",
-        status:"OK",
+        status:"NOK",
         subquestions: [
             {
                 id: 1.1,
