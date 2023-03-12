@@ -14,14 +14,41 @@
         <p class="panel-tabs is-size-4 has-text-weight-bold">
           JS Questions Checklist
         </p>
+        <a id="panelBlock" class="panel-tabs">
+            <div class="navbar-item">
+                <button class="button is-success is-primary is-light is-small">Only Learned</button>
+            </div>
+            <div class="navbar-item">
+                <button class="button is-danger is-primary is-light is-small">Only Need to Learn</button>
+            </div>
+            
+            <div class="navbar-item">
+                <button id="openModal" class="button is-primary is-light is-small" >Add question</button>
+            </div>
+
+            <div class="modal" id="modal">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title has-text-weight-bold">Add new Question</p>
+                        <button id="closeModal" class="delete" aria-label="close" ></button>
+                    </header>
+                    <textarea class="textarea" placeholder="Enter some text..."></textarea>
+                    <footer class="modal-card-foot">
+                        <button class="button is-success">Save changes</button>
+                        <button id="closeModal" class="button">Cancel</button>
+                    </footer>
+                </div>
+            </div>
+        </a>
     </nav>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script type="module" src="scripts/main.js"></script>
     <script type="module" src="scripts/data/questions.js"></script>
     <script type="module" src="scripts/utils/localStorage.js"></script>
     <script type="module" src="scripts/views/card.js"></script>
-
+    <script type="module" src="scripts/views/modal.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 </html>

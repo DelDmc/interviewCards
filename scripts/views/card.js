@@ -5,9 +5,9 @@ export function fillUpHTMLCard (questionData, statusState, questionId){
 
     const subquestions = addSubQuestion (questionData);
     const questionCardHTML = `
-    <div class="columns is-desktop is-centered">
+    <div class="panel-tabs is-desktop is-centered">
         <div class="column is-8">
-            <div class="card mb-5 mt-3">
+            <div class="card">
                 <header class="card-header has-background-grey-lighter has-text-centered">
                     <p class="card-header-title ">
                         Question ID: ${questionId + 1}
@@ -19,7 +19,7 @@ export function fillUpHTMLCard (questionData, statusState, questionId){
                     </div>
                     ${subquestions? subquestions: ""}
                 </div>
-                <div class="is-inline-flex">
+                <div class="panel-tabs">
                     ${statusState.OK}
                     ${statusState.NOK}
                 </div>
