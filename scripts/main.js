@@ -1,26 +1,32 @@
 import { questions } from "./data/questions.js";
-import { addFileToLocalStorage, parseDataFromLocalStorage} from "./utils/localStorage.js";
+import { addFileToLocalStorage, retrieveDataFromLocalStorage} from "./utils/localStorage.js";
 import { createHTMLCardElement, changeButtonState} from "./views/card.js";
 import { openModal, closeModal} from "./views/modal.js";
 
+let dataDisplayValue = 0;
 
 const dataFileName = "questions";
 addFileToLocalStorage(questions, dataFileName);
-const storedQuestions = parseDataFromLocalStorage(dataFileName);
 
-storedQuestions.forEach(
-    (questionData, idx) => {
-        document.getElementById("checklist")
-                .insertAdjacentHTML(
-                    'beforeend', 
-                    createHTMLCardElement(questionData, idx)
-                    );
-                });
+const data = retrieveDataFromLocalStorage(dataFileName);
+let storedQuestions;
 
-storedQuestions.forEach(
-    (questionData, idx)  => {
-        changeButtonState(questionData, idx, storedQuestions, dataFileName);    
-});
+switch (dataDisplayValue){
+    case 0:{
+        storedQuestions = data.all;
+        break;
+    }
+    case 1:{
+        storedQuestions = data.withLearnedStatus;
+        break;
+    }
+    case 2:{
+        storedQuestions = data.withNeedToLearnStatus;
+        break;
+    }
+}
+
+displayQuestions();
 
 const panelBlock = document.getElementById("panelBlock");
 panelBlock.addEventListener("click", function (event){
@@ -31,5 +37,18 @@ panelBlock.addEventListener("click", function (event){
         closeModal();
     }
 });
+
+function displayQuestions (){
+    storedQuestions.forEach(
+        (questionData, idx) => {
+            document.getElementById("checklist")
+                    .insertAdjacentHTML(
+                        'beforeend', 
+                        createHTMLCardElement(questionData, idx)
+                        );
+                    });
+                }
+                 
+changeButtonState(storedQuestions, dataFileName);
 
 
