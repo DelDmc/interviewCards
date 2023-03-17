@@ -10,51 +10,53 @@
 </head>
 
 <body>
-    <nav class="header ">
+    <nav class="header">
         <p class="panel-tabs is-size-4 has-text-weight-bold">
           JS Questions Checklist
         </p>
-        <a id="panelBlock" class="panel-tabs is-flex-wrap-wrap has-background-light">
-            <div class="navbar-item">
-                <button class="button has-background-grey-lighter is-small">All questions</button>
-            </div>
-            <div class="navbar-item">
-                <button class="button has-background-grey-lighter is-small">Only Learned</button>
-            </div>
-            <div class="navbar-item">
-                <button class="button has-background-grey-lighter is-small">Only Need to Learn</button>
-            </div>
-            <div class="navbar-item">
-                <button id="openModal" class="button has-background-grey-lighter is-small">Add question</button>
-            </div>
 
-            <div class="modal" id="modal">
-                <div class="modal-background"></div>
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title has-text-weight-bold">Add new Question</p>
-                        <button id="closeModal" class="delete" aria-label="close" ></button>
-                    </header>
-                    <textarea class="textarea" placeholder="Enter some text..."></textarea>
-                    <footer class="modal-card-foot">
-                        <button class="button is-success">Save changes</button>
-                        <button id="closeModal" class="button">Cancel</button>
-                    </footer>
-                </div>
+        <div id="headerPanel" class="panel-tabs is-desktop is-centered is-flex-wrap-wrap">
+            <div class="column is-8">
+                <article class="card">
+                    <div class="field">
+                        <div class="control">
+                        <textarea id="questionText" class="textarea is-small" placeholder="Write down new question here"></textarea>
+                    </div>  
+                    <div class="columns is-centered is-multiline is-mobile">
+                        <div class="column is-half-mobile is-one-quarter-desktop is-one-quarter-widescreen">
+                            <div class="navbar-item">
+                                <p class="control">
+                                    <a id="addButton" class="button is-primary">
+                                        Add new question
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="column is-half-mobile is-one-quarter-desktop is-one-quarter-widescreen">
+                            <div class="navbar-item pt-5">
+                                <label class="checkbox">
+                                    <input id="showNeedToLearn" type="checkbox">
+                                        Show only "Need to learn"
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
-        </a>
+        </div>
     </nav>
-    <div id="checklist">
 
-    </div>
+    <div id="checklist"></div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script type="module" src="scripts/data/questions.js"></script>
-    <script type="module" src="scripts/data/sortQuestions.js"></script>
+    <script type="module" src="scripts/data/dataOperations.js"></script>
     <script type="module" src="scripts/utils/localStorage.js"></script>
     <script type="module" src="scripts/views/card.js"></script>
-    <script type="module" src="scripts/views/modal.js"></script>
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
+
+<!-- What is JSON? -->

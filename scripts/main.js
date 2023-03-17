@@ -1,54 +1,36 @@
 import { questions } from "./data/questions.js";
-import { addFileToLocalStorage, retrieveDataFromLocalStorage} from "./utils/localStorage.js";
-import { createHTMLCardElement, changeButtonState} from "./views/card.js";
-import { openModal, closeModal} from "./views/modal.js";
-
-let dataDisplayValue = 0;
+import { addFileToLocalStorage, parseDataFromLocalStorage, updateQuestionDataInStorage } from "./utils/localStorage.js";
+import { changeButtonState, displayCards } from "./views/card.js";
+import { filterByNeedToLearnStatus, addNewQuestion } from "./data/dataOperations.js";
 
 const dataFileName = "questions";
 addFileToLocalStorage(questions, dataFileName);
+let dataSet = parseDataFromLocalStorage(dataFileName);
 
-const data = retrieveDataFromLocalStorage(dataFileName);
-let storedQuestions;
-
-switch (dataDisplayValue){
-    case 0:{
-        storedQuestions = data.all;
-        break;
-    }
-    case 1:{
-        storedQuestions = data.withLearnedStatus;
-        break;
-    }
-    case 2:{
-        storedQuestions = data.withNeedToLearnStatus;
-        break;
-    }
-}
-
-displayQuestions();
-
-const panelBlock = document.getElementById("panelBlock");
+const panelBlock = document.getElementById("headerPanel");
 panelBlock.addEventListener("click", function (event){
-    if (event.target.id === "openModal") {
-        openModal();
+    if (event.target.id === "addButton") {
+        dataSet = parseDataFromLocalStorage(dataFileName);
+
+        // TODO: There is no use to call loop one more time, better to add just a new card
+        addNewQuestion (dataSet);
     }
-    if (event.target.id === "closeModal") {
-        closeModal();
+    if (event.target.checked) {
+        checklist.innerHTML = "";
+        dataSet = filterByNeedToLearnStatus(dataSet);
+        displayCards(dataSet);
+    } else {
+        checklist.innerHTML = "";
+        dataSet = parseDataFromLocalStorage(dataFileName);
+        displayCards(dataSet);
     }
 });
 
-function displayQuestions (){
-    storedQuestions.forEach(
-        (questionData, idx) => {
-            document.getElementById("checklist")
-                    .insertAdjacentHTML(
-                        'beforeend', 
-                        createHTMLCardElement(questionData, idx)
-                        );
-                    });
-                }
-                 
-changeButtonState(storedQuestions, dataFileName);
+const checklist = document.getElementById("checklist");           
+checklist.addEventListener('click', function(event){
+    dataSet = parseDataFromLocalStorage(dataFileName);
+    changeButtonState(event, dataSet, dataFileName);
+    updateQuestionDataInStorage(dataSet, dataFileName);
+});
 
-
+displayCards(dataSet);
