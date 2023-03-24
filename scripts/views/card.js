@@ -1,8 +1,8 @@
-export function fillUpHTMLCard (questionData, statusState){
+export function fillUpHTMLCard (questionData){
     const questionText = questionData.text;
     const subquestions = addSubQuestion (questionData);
     const learnedBtn = `<button class="button is-success is-outlined mb-5 is-hovered">Learned<span class="ml-3"><ion-icon name="checkmark-circle-outline"></ion-icon></span></button>`; 
-    const needToLearnBtn = `<button class="button is-danger mb-5 is-hovered" >Need to learn<span class="ml-3"><ion-icon name="close-circle-outline"></ion-icon></span></button>`;
+    const needToLearnBtn = `<button class="button is-danger mb-5 is-hovered" >Need to Learn<span class="ml-3"><ion-icon name="close-circle-outline"></ion-icon></span></button>`;
     const questionCardHTML = `
             <div class="column is-centered has-text-centered is-8 is-offset-2">
                 <div class="card is-6 is-offset-3">
@@ -12,7 +12,7 @@ export function fillUpHTMLCard (questionData, statusState){
                         </div>
                         ${subquestions? subquestions: ""}
                     </div>
-                    <div class="panel-tabs">
+                    <div id="${questionData.id}" class="panel-tabs">
                         ${questionData.status ? learnedBtn : needToLearnBtn}
                     </div>
                 </div>
@@ -21,24 +21,30 @@ export function fillUpHTMLCard (questionData, statusState){
     return questionCardHTML;
 }
 
-export function changeButtonState (event){
-        if (event.target.classList.contains('is-danger')) {
-            event.target.className = "button is-success is-outlined mb-5 is-hovered";
-            event.target.textContent = "Learned";
+export function changeButtonState(event, dataSet) {
+    const targetBtn = event.target;
+    const questionId = targetBtn.parentElement.id;
+    const question = dataSet[questionId];
+    
+    if (targetBtn.textContent === "Need to Learn") {
+        targetBtn.className = "button is-success is-outlined mb-5 is-hovered";
+        targetBtn.textContent = "Learned";
+        question.status = true;
 
-        } else if (event.target.classList.contains('is-success')) {
-            event.target.className = "button is-danger mb-5 is-hovered";
-            event.target.textContent = "Need to Learn";
-        }
+    } else if (targetBtn.textContent === "Learned") {
+        targetBtn.className = "button is-danger mb-5 is-hovered";
+        targetBtn.textContent = "Need to Learn";
+        question.status = false;
     }
+}
 
 export function displayCards (questionsDataSet){
     questionsDataSet.forEach(
-        (questionData) => {
+        (questionData, idx) => {
             document.getElementById("checklist")
                     .insertAdjacentHTML(
                         'beforeend', 
-                        fillUpHTMLCard (questionData)
+                        fillUpHTMLCard (questionData, idx)
                         );
                     });
                 }
