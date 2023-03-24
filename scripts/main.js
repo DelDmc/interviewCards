@@ -6,18 +6,22 @@ import { filterByNeedToLearnStatus, addNewQuestion, addIdxToQuestion } from "./d
 const dataFileName = "questions";
 addIdxToQuestion(questions);
 addFileToLocalStorage(questions, dataFileName);
-let dataSet = parseDataFromLocalStorage(dataFileName);
+const dataSet = parseDataFromLocalStorage(dataFileName);
+const addQuestionButton =  document.getElementById("addButton");
+const filterCheckBox = document.getElementById("showNeedToLearn");
+// const panelBlock = document.getElementById("headerPanel");
 
-const panelBlock = document.getElementById("headerPanel");
-panelBlock.addEventListener("click", function (event) {
-    if (event.target.id === "addButton") {
+addQuestionButton.addEventListener("click", function (event) {
         addNewQuestion(dataSet);
-    }
+        checklist.innerHTML = "";
+        filterCheckBox.checked = false;
+        displayCards(dataSet);
+    });
 
+filterCheckBox.addEventListener("click", function (event) {
     if (event.target.checked) {
         checklist.innerHTML = "";
         displayCards(filterByNeedToLearnStatus(dataSet));
-
     } else {
         checklist.innerHTML = "";
         displayCards(dataSet);
