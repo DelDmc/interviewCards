@@ -6,10 +6,11 @@ import { filterByNeedToLearnStatus, addNewQuestion, addIdxToQuestion } from "./d
 const dataFileName = "questions";
 addIdxToQuestion(questions);
 addFileToLocalStorage(questions, dataFileName);
+
 const dataSet = parseDataFromLocalStorage(dataFileName);
 const addQuestionButton =  document.getElementById("addButton");
 const filterCheckBox = document.getElementById("showNeedToLearn");
-// const panelBlock = document.getElementById("headerPanel");
+const checklist = document.getElementById("checklist");
 
 addQuestionButton.addEventListener("click", function (event) {
         addNewQuestion(dataSet);
@@ -28,7 +29,7 @@ filterCheckBox.addEventListener("click", function (event) {
     }
 });
 
-const checklist = document.getElementById("checklist");
+
 checklist.addEventListener('click', function (event) {
     changeButtonState(event, dataSet);
     updateQuestionDataInStorage(dataSet, dataFileName);
