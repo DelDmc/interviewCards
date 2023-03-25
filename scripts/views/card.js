@@ -52,9 +52,11 @@ export function displayCards (questionsDataSet){
                 }
 
 export function displayFilteredCards(checkbox, questionsDataSet){
+    checklist.innerHTML = "";
     if (checkbox.checked){
-        checklist.innerHTML = "";
         displayCards(filterByNeedToLearnStatus(questionsDataSet));
+    } else {
+        displayCards(questionsDataSet);
     }
 }
 

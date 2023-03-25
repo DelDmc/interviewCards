@@ -1,6 +1,5 @@
 import {addNewQuestionToLocalStorage} from "../utils/localStorage.js";
 
-
 export function filterByNeedToLearnStatus (questions){
     const filteredQuestions = questions.filter((question) => question.status === false);
     return filteredQuestions;

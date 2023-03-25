@@ -8,22 +8,17 @@ addIdxToQuestion(questions);
 addFileToLocalStorage(questions, dataFileName);
 
 const dataSet = parseDataFromLocalStorage(dataFileName);
-const addQuestionButton =  document.getElementById("addButton");
+const addQuestionButton = document.getElementById("addButton");
 const filterCheckBox = document.getElementById("showNeedToLearn");
 const checklist = document.getElementById("checklist");
 
-addQuestionButton.addEventListener("click", function (event) {
+addQuestionButton.addEventListener("click", function () {
         addNewQuestion(dataSet);
         displayFilteredCards(filterCheckBox, dataSet);
     });
 
-filterCheckBox.addEventListener("click", function (event) {
-    checklist.innerHTML = "";
-    if (event.target.checked) {
-        displayCards(filterByNeedToLearnStatus(dataSet));
-    } else {
-        displayCards(dataSet);
-    }
+filterCheckBox.addEventListener("click", function () {
+    displayFilteredCards(filterCheckBox, dataSet);
 });
 
 checklist.addEventListener('click', function (event) {
