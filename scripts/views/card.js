@@ -1,3 +1,5 @@
+import { filterByNeedToLearnStatus} from "../data/dataOperations.js";
+
 export function fillUpHTMLCard (questionData){
     const questionText = questionData.text;
     const subquestions = addSubQuestion (questionData);
@@ -25,7 +27,7 @@ export function changeButtonState(event, dataSet) {
     const targetBtn = event.target;
     const questionId = targetBtn.parentElement.id;
     const question = dataSet[questionId];
-    
+
     if (targetBtn.textContent === "Need to Learn") {
         targetBtn.className = "button is-success is-outlined mb-5 is-hovered";
         targetBtn.textContent = "Learned";
@@ -48,6 +50,13 @@ export function displayCards (questionsDataSet){
                         );
                     });
                 }
+
+export function displayFilteredCards(checkbox, questionsDataSet){
+    if (checkbox.checked){
+        checklist.innerHTML = "";
+        displayCards(filterByNeedToLearnStatus(questionsDataSet));
+    }
+}
 
 function addSubQuestion (questionData) {
     if (questionData.subquestions && questionData.subquestions.length > 0){

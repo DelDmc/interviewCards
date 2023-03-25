@@ -1,6 +1,6 @@
 import { questions } from "./data/questions.js";
-import { addFileToLocalStorage, parseDataFromLocalStorage, updateQuestionDataInStorage, } from "./utils/localStorage.js";
-import { changeButtonState, displayCards } from "./views/card.js";
+import { addFileToLocalStorage, parseDataFromLocalStorage, updateQuestionDataInStorage } from "./utils/localStorage.js";
+import { changeButtonState, displayCards, displayFilteredCards } from "./views/card.js";
 import { filterByNeedToLearnStatus, addNewQuestion, addIdxToQuestion } from "./data/dataOperations.js";
 
 const dataFileName = "questions";
@@ -14,25 +14,22 @@ const checklist = document.getElementById("checklist");
 
 addQuestionButton.addEventListener("click", function (event) {
         addNewQuestion(dataSet);
-        checklist.innerHTML = "";
-        filterCheckBox.checked = false;
-        displayCards(dataSet);
+        displayFilteredCards(filterCheckBox, dataSet);
     });
 
 filterCheckBox.addEventListener("click", function (event) {
+    checklist.innerHTML = "";
     if (event.target.checked) {
-        checklist.innerHTML = "";
         displayCards(filterByNeedToLearnStatus(dataSet));
     } else {
-        checklist.innerHTML = "";
         displayCards(dataSet);
     }
 });
 
-
 checklist.addEventListener('click', function (event) {
     changeButtonState(event, dataSet);
     updateQuestionDataInStorage(dataSet, dataFileName);
+    displayFilteredCards(filterCheckBox, dataSet);
 });
 
 displayCards(dataSet);
