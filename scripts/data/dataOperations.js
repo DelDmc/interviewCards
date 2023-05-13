@@ -1,9 +1,9 @@
-import { addNewQuestionToLocalStorage } from "../utils/localStorage.js";
+import {addNewQuestionToLocalStorage} from '../utils/localStorage.js';
 
 /**
  * Filters an array of questions by their "status" property.
  * @param {Array} questions - The array of questions to filter.
- * @returns {Array} The filtered questions.
+ * @return {Array} The filtered questions.
  */
 export function filterByNeedToLearnStatus(questions) {
   const filteredQuestions = questions.filter((question) => question.status === false);
@@ -15,20 +15,20 @@ export function filterByNeedToLearnStatus(questions) {
  * @param {Array} data - The data array to add the question to.
  */
 export function addNewQuestion(data) {
-  const textElement = document.getElementById("questionText");
+  const textElement = document.getElementById('questionText');
   const questionText = textElement.value;
   const newQuestionId = data.length;
-  let questionSample = {
-    text: "",
+  const questionSample = {
+    text: '',
     status: false,
     id: newQuestionId,
   };
-  if (questionText.trim() !== "") {
+  if (questionText.trim() !== '') {
     questionSample.text = questionText;
     addNewQuestionToLocalStorage(data, questionSample);
-    textElement.value = "";
+    textElement.value = '';
   } else {
-    alert("Too short");
+    alert('Too short');
   }
 }
 
@@ -37,7 +37,7 @@ export function addNewQuestion(data) {
  * @param {Array} questions - The array of questions to add "id" property to.
  */
 export function addIdxToQuestion(questions) {
-  questions.forEach(function (question, idx) {
+  questions.forEach(function(question, idx) {
     if (!question.id) {
       question.id = idx;
     }
