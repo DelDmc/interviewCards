@@ -28,3 +28,7 @@ export function updateQuestionDataInStorage(data, filename) {
   localStorage.setItem(filename, JSON.stringify(data));
 }
 
+export function addNewQuestionToLocalStorage(data, newQuestion){
+    data.push(newQuestion);
+    localStorage.setItem("questions", JSON.stringify(data));
+}

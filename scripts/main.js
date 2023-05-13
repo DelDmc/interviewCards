@@ -1,22 +1,31 @@
-import {questions} from './data/questions.js';
-import {addFileToLocalStorage, parseDataFromLocalStorage} from './utils/localStorage.js';
-import {createHTMLCardElement, changeButtonState} from './views/card.js';
 
+import { questions } from "./data/questions.js";
+import { addFileToLocalStorage, parseDataFromLocalStorage, updateQuestionDataInStorage } from "./utils/localStorage.js";
+import { changeButtonState, displayCards, displayFilteredCards } from "./views/card.js";
+import { filterByNeedToLearnStatus, addNewQuestion, addIdxToQuestion } from "./data/dataOperations.js";
 
-const dataFileName = 'questions';
+const dataFileName = "questions";
+addIdxToQuestion(questions);
 addFileToLocalStorage(questions, dataFileName);
-const storedQuestions = parseDataFromLocalStorage(dataFileName);
 
-storedQuestions.forEach(
-    (questionData, idx) => {
-      document.getElementById('checklist')
-          .insertAdjacentHTML(
-              'beforeend',
-              createHTMLCardElement(questionData, idx),
-          );
+const dataSet = parseDataFromLocalStorage(dataFileName);
+const addQuestionButton = document.getElementById("addButton");
+const filterCheckBox = document.getElementById("showNeedToLearn");
+const checklist = document.getElementById("checklist");
+
+addQuestionButton.addEventListener("click", function () {
+        addNewQuestion(dataSet);
+        displayFilteredCards(filterCheckBox, dataSet);
     });
 
-storedQuestions.forEach(
-    (questionData, idx) => {
-      changeButtonState(questionData, idx, storedQuestions, dataFileName);
-    });
+filterCheckBox.addEventListener("click", function () {
+    displayFilteredCards(filterCheckBox, dataSet);
+});
+
+checklist.addEventListener('click', function (event) {
+    changeButtonState(event, dataSet);
+    updateQuestionDataInStorage(dataSet, dataFileName);
+    displayFilteredCards(filterCheckBox, dataSet);
+});
+
+displayCards(dataSet);
