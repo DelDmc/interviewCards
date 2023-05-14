@@ -8,10 +8,10 @@ import {filterByNeedToLearnStatus} from '../data/dataOperations.js';
 export function fillUpHTMLCard(questionData) {
   const questionText = questionData.text;
   const subquestions = addSubQuestion(questionData);
-  const learnedBtn = `<button class="button is-success is-outlined mb-5 is-hovered">Learned<span class="ml-3">
-                      <ion-icon name="checkmark-circle-outline"></ion-icon></span></button>`;
-  const needToLearnBtn = `<button class="button is-danger mb-5 is-hovered" >Need to Learn<span class="ml-3">
-                          <ion-icon name="close-circle-outline"></ion-icon></span></button>`;
+  const checkIconMarkup = '<span class="ml-3"><ion-icon name="checkmark-circle-outline"></ion-icon></span>';
+  const learnedBtn = `<button class="button is-success is-outlined mb-5 is-hovered">Learned${checkIconMarkup}</button>`;
+  const crossIconMarkup = '<span class="ml-3"><ion-icon name="close-circle-outline"></ion-icon></span>';
+  const needToLearnBtn = `<button class="button is-danger mb-5 is-hovered">Need to Learn${crossIconMarkup}</button>`;
   const questionCardHTML = `
             <div class="column is-centered has-text-centered is-8 is-offset-2">
                 <div class="card is-6 is-offset-3">
@@ -40,6 +40,8 @@ export function changeButtonState(event, dataSet) {
   const questionId = targetBtn.parentElement.id;
   const question = dataSet[questionId];
 
+  console.log(targetBtn.textContent);
+  console.log(targetBtn.textContent === 'Need to Learn');
   if (targetBtn.textContent === 'Need to Learn') {
     targetBtn.className = 'button is-success is-outlined mb-5 is-hovered';
     targetBtn.textContent = 'Learned';
